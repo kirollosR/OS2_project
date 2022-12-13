@@ -6,6 +6,6 @@ module com.example.os2_project {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.os2_project to javafx.fxml;
-    exports com.example.os2_project;
+    opens main.os2_project to javafx.fxml;
+    exports main.os2_project;
 }
