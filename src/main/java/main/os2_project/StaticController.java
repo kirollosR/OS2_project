@@ -7,16 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class Controller {
-
-    @FXML
-    private Button btnTransfer;
-
-    @FXML
-    private Button btnTransfer1;
-
-    @FXML
-    private Button btnTransfer11;
+public class StaticController {
 
     @FXML
     private ComboBox<?> comboBoxAccounts;
@@ -37,6 +28,9 @@ public class Controller {
     private Label labelTransferStatus11;
 
     @FXML
+    private Button runTests;
+
+    @FXML
     private TextField textFieldAmount;
 
     @FXML
@@ -46,7 +40,7 @@ public class Controller {
     private TextField textFieldAmount11;
 
     @FXML
-    void btnTransferOnClick(ActionEvent event) {
+    void onClickRunAllTests(ActionEvent event) {
 
     }
 
