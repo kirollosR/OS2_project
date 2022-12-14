@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="255.0" fitWidth="260.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../assets/landing-page.gif" />
+            <Image url="@assets/landing-page.gif" />
          </image>
       </ImageView>
       <Button fx:id="btnDynamic" layoutX="172.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickDynamic" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #14213d;" text="Dynamic Page" textFill="WHITE" />

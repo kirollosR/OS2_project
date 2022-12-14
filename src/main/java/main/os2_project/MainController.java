@@ -13,7 +13,6 @@ import java.util.Objects;
 
 public class MainController {
 
-    @FXML
     private Button btnDynamic;
 
     @FXML
@@ -25,7 +24,7 @@ public class MainController {
         stage.close();
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dynamic-page.fxml")));
-        primaryStage.setTitle("Static Page");
+        primaryStage.setTitle("Dynamic Page");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
