@@ -8,8 +8,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.os2_project.DynamicController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="707.0" style="-fx-background-color: fcf5c7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.os2_project.DynamicController">
       <ImageView disable="true" fitHeight="115.0" fitWidth="150.0" layoutX="39.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../../assets/profile1.png" />
       </ImageView>
@@ -19,21 +20,39 @@
       <ImageView fitHeight="115.0" fitWidth="150.0" layoutX="39.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../../assets/profile3.png" />
       </ImageView>
-      <ComboBox fx:id="comboBoxAccounts" layoutX="304.0" layoutY="86.0" prefWidth="150.0" promptText="Choose Account" />
-      <ComboBox fx:id="comboBoxAccounts1" layoutX="304.0" layoutY="438.0" prefWidth="150.0" promptText="Choose Account" />
-      <ComboBox fx:id="comboBoxAccounts2" layoutX="304.0" layoutY="262.0" prefWidth="150.0" promptText="Choose Account" />
-      <TextField fx:id="textFieldAmount" layoutX="521.0" layoutY="86.0" text="Enter Desired Amount" />
-      <TextField fx:id="textFieldAmount11" layoutX="521.0" layoutY="439.0" text="Enter Desired Amount" />
-      <TextField fx:id="textFieldAmount1" layoutX="521.0" layoutY="263.0" text="Enter Desired Amount" />
-      <Button fx:id="btnTransfer1" layoutX="555.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" text="Transfer" />
-      <Button fx:id="btnTransfer" layoutX="555.0" layoutY="134.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" text="Transfer" />
-      <Button fx:id="btnTransfer11" layoutX="555.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" text="Transfer" />
-      <Label fx:id="labelTransferStatus" layoutX="266.0" layoutY="148.0" prefHeight="18.0" prefWidth="225.0" />
-      <Label fx:id="labelTransferStatus1" layoutX="266.0" layoutY="321.0" prefHeight="18.0" prefWidth="225.0" />
-      <Label fx:id="labelTransferStatus11" layoutX="266.0" layoutY="497.0" prefHeight="18.0" prefWidth="225.0" />
-      <Label layoutX="167.0" layoutY="77.0" prefHeight="18.0" prefWidth="72.0" text="Profile 1" />
-      <Label layoutX="167.0" layoutY="430.0" prefHeight="18.0" prefWidth="72.0" text="Profile 3" />
-      <Label layoutX="167.0" layoutY="253.0" prefHeight="18.0" prefWidth="72.0" text="Profile 2" />
+      <ComboBox fx:id="comboBoxAccounts1" layoutX="304.0" layoutY="86.0" prefWidth="150.0" promptText="Choose Account" style="-fx-background-color: white;" />
+      <ComboBox fx:id="comboBoxAccounts3" layoutX="304.0" layoutY="438.0" prefWidth="150.0" promptText="Choose Account" style="-fx-background-color: white;" />
+      <ComboBox fx:id="comboBoxAccounts2" layoutX="304.0" layoutY="262.0" prefWidth="150.0" promptText="Choose Account" style="-fx-background-color: white;" />
+      <TextField fx:id="textFieldAmount1" layoutX="521.0" layoutY="86.0" promptText="Enter Desired Amount" style="-fx-background-color: #caf0f8;" />
+      <TextField fx:id="textFieldAmount3" layoutX="521.0" layoutY="439.0" promptText="Enter Desired Amount" style="-fx-background-color: caf0f8;" />
+      <TextField fx:id="textFieldAmount2" layoutX="521.0" layoutY="263.0" promptText="Enter Desired Amount" style="-fx-background-color: #caf0f8;" />
+      <Button fx:id="btnTransfer2" layoutX="337.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="#fcfcfc" />
+      <Button fx:id="btnTransfer1" layoutX="337.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
+      <Button fx:id="btnTransfer3" layoutX="337.0" layoutY="522.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="83.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
+      <Label fx:id="labelTransferStatus1" alignment="CENTER" contentDisplay="CENTER" layoutX="266.0" layoutY="138.0" prefHeight="18.0" prefWidth="225.0" text="Message1" textAlignment="CENTER" textFill="#e63946">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+      <Label fx:id="labelTransferStatus2" alignment="CENTER" layoutX="266.0" layoutY="318.0" prefHeight="18.0" prefWidth="225.0" text="Message2" textAlignment="CENTER" textFill="#e63946">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+      <Label fx:id="labelTransferStatus3" alignment="CENTER" layoutX="266.0" layoutY="496.0" prefHeight="18.0" prefWidth="225.0" text="Message3" textFill="#e63946">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+      <Label layoutX="167.0" layoutY="89.0" prefHeight="18.0" prefWidth="72.0" text="Profile 1" textFill="#084c61">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
+      <Label layoutX="167.0" layoutY="441.0" prefHeight="18.0" prefWidth="72.0" text="Profile 3" textFill="#084c61">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
+      <Label layoutX="167.0" layoutY="265.0" prefHeight="18.0" prefWidth="72.0" text="Profile 2" textFill="#084c61">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
    <opaqueInsets>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </opaqueInsets>
