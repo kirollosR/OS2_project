@@ -26,9 +26,9 @@
       <TextField fx:id="textFieldAmount1" layoutX="521.0" layoutY="86.0" promptText="Enter Desired Amount" style="-fx-background-color: #caf0f8;" />
       <TextField fx:id="textFieldAmount3" layoutX="521.0" layoutY="439.0" promptText="Enter Desired Amount" style="-fx-background-color: caf0f8;" />
       <TextField fx:id="textFieldAmount2" layoutX="521.0" layoutY="263.0" promptText="Enter Desired Amount" style="-fx-background-color: #caf0f8;" />
-      <Button fx:id="btnTransfer2" layoutX="302.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="#fcfcfc" />
-      <Button fx:id="btnTransfer1" layoutX="302.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
-      <Button fx:id="btnTransfer3" layoutX="302.0" layoutY="522.0" mnemonicParsing="false" onAction="#btnTransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
+      <Button fx:id="btnTransfer2" layoutX="302.0" layoutY="346.0" mnemonicParsing="false" onAction="#btn2TransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="#fcfcfc" />
+      <Button fx:id="btnTransfer1" layoutX="302.0" layoutY="166.0" mnemonicParsing="false" onAction="#btn1TransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
+      <Button fx:id="btnTransfer3" layoutX="302.0" layoutY="522.0" mnemonicParsing="false" onAction="#btn3TransferOnClick" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00b4d8;" text="Transfer" textFill="WHITE" />
       <Label fx:id="labelTransferStatus1" alignment="CENTER" contentDisplay="CENTER" layoutX="266.0" layoutY="138.0" prefHeight="18.0" prefWidth="225.0" text="Message1" textAlignment="CENTER" textFill="#e63946">
       <font>
          <Font name="System Bold" size="12.0" />
@@ -53,6 +53,9 @@
       <font>
          <Font name="System Bold" size="14.0" />
       </font></Label>
+   <Label fx:id="balance1" layoutX="167.0" layoutY="112.0" text="Label" textFill="#00b4d8" />
+   <Label fx:id="balance2" layoutX="167.0" layoutY="289.0" text="Label" textFill="#00b4d8" />
+   <Label fx:id="balance3" layoutX="167.0" layoutY="465.0" text="Label" textFill="#00b4d8" />
    <opaqueInsets>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </opaqueInsets>
