@@ -13,21 +13,21 @@ public class Monitor {
 //    private enum States {HUNGRY, THINKING, EATING}
     private enum States {WANT_TO_TRANSFER, TRANSFERING, SLEEPING}
     private States[] state;
-    final Condition[] cond;
+    final Condition cond;
     private Account[] accounts;
-    private final List<Condition> syncQueue = new ArrayList<Condition>(); // threads waiting to be the holder
 
 
     public Monitor(int numberOfCustomers, Account[] c){
         this.numberOfCustomers = numberOfCustomers;
         lock = new ReentrantLock(true); // can send boolean with true for the fair to make a queue 3ashan law kaza 7ad 3ayz yem3l lock yestano fe queue
         state = new States[numberOfCustomers];
-        cond = new Condition[numberOfCustomers];
+//        cond = new Condition();
+        cond = lock.newCondition();
         accounts = new Account[numberOfCustomers];
 
         for(int i = 0; i < numberOfCustomers; i++){
             state[i] = States.SLEEPING;
-            cond[i] = lock.newCondition();
+//            cond[i] = lock.newCondition();
         }
 
         this.accounts = c;
@@ -40,9 +40,9 @@ public class Monitor {
 //            cond[i].signal();
 //        }
         if(!accounts[id].isInTransfer() && !accounts[transferToId].isInTransfer() && state[id] == States.WANT_TO_TRANSFER && state[transferToId] != States.TRANSFERING){
-            cond[id].signal();
+//            cond[id].signal();
             state[id] = States.TRANSFERING;
-            cond[transferToId].signal();
+//            cond[transferToId].signal();
             state[transferToId] = States.TRANSFERING;
         }
     }
@@ -52,11 +52,11 @@ public class Monitor {
             state[id] = States.WANT_TO_TRANSFER;
             test(id, transferToId);
             if(state[id] != States.TRANSFERING){
-                syncQueue.add(cond[id]);
-                cond[id].await();
+//                syncQueue.add(cond[id]);
+                cond.await();
             } else if (state[transferToId] != States.TRANSFERING) {
-                syncQueue.add(cond[transferToId]);
-                cond[transferToId].await();
+//                syncQueue.add(cond[transferToId]);
+                cond.await();
             }
             transfer(id, transferToId, transferAmount);
         } catch (InterruptedException e) {
@@ -77,8 +77,8 @@ public class Monitor {
         lock.lock();
         try {
             sleep(id, transferToId);
-            syncQueue.forEach(Object::notify);
-//            notifyAll();
+//            syncQueue.forEach(Condition::signal);
+            cond.signalAll();
             // Tell the right neighbor about the possibility to eat.
 //            int account1 = (id + numberOfCustomers - 1)%numberOfCustomers;
 //            int account2 = (id + numberOfCustomers - 2)%numberOfCustomers;
