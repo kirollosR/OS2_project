@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static java.lang.Float.parseFloat;
@@ -71,40 +74,71 @@ public class DynamicController implements Initializable {
 
     private Account[] accounts;
     private Customer[] customers;
+    private List<Transfer> transfers = new ArrayList<>();
     private Monitor monitor;
 
     @FXML
     void btn1TransferOnClick(ActionEvent event) throws InterruptedException {
         String selected = comboBoxAccounts1.getSelectionModel().getSelectedItem();
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
-//        labelTransferStatus1.setText(transferToId + "");
         String amount = textFieldAmount1.getText();
-        float amountFloat = parseFloat(amount);
-        customers[0] = new Customer(0, transferToId, amountFloat, monitor);
-        customers[0].t.join();
-        balance1.setText("Balance: " + accounts[0].getBalance());
+        System.out.println("transferToId " + transferToId);
+        setBtnTransfer(0, transferToId, amount);
+//        setBtnTransfer(transferToId, 2, amount);
+        updateCustomerAmount(0);
+        updateCustomerAmount(transferToId);
     }
 
     @FXML
     void btn2TransferOnClick(ActionEvent event) throws InterruptedException {
         String selected = comboBoxAccounts2.getSelectionModel().getSelectedItem();
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
-
-//        labelTransferStatus1.setText(transferToId + "");
-        customers[1] = new Customer(1, transferToId, 0, monitor);
-        customers[1].t.join();
-        balance2.setText("Balance: " + accounts[1].getBalance());
+        String amount = textFieldAmount2.getText();
+        setBtnTransfer(1, transferToId, amount);
+        updateCustomerAmount(1);
+        updateCustomerAmount(transferToId);
     }
     @FXML
     void btn3TransferOnClick(ActionEvent event) throws InterruptedException {
-        String selected = comboBoxAccounts1.getSelectionModel().getSelectedItem();
+        String selected = comboBoxAccounts3.getSelectionModel().getSelectedItem();
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
-//        labelTransferStatus1.setText(transferToId + "");
-        customers[2] = new Customer(2, transferToId, 0, monitor);
-        customers[2].t.join();
-        balance3.setText("Balance: " + accounts[2].getBalance());
+        String amount = textFieldAmount3.getText();
+        setBtnTransfer(2, transferToId, amount);
+        updateCustomerAmount(2);
+        updateCustomerAmount(transferToId);
+    }
+    @FXML
+    public void startTransferOnClick(ActionEvent actionEvent) {
+        transfers.parallelStream().forEach(transfer -> {
+            try {
+                transfer.t.start();
+                transfer.t.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        transfers.clear();
+        updateCustomerAmount(0);
+        updateCustomerAmount(1);
+        updateCustomerAmount(2);
+    }
+    private void setBtnTransfer(int customerId, int transferToId, String amount) throws InterruptedException {
+        float amountFloat = parseFloat(amount);
+        Transfer transfer = new Transfer(customers[customerId].getId(), transferToId, amountFloat, monitor);
+        transfers.add(transfer);
+//        customers[customerId].setTransfer(transfer);
+//        customers[customerId].getTransfer().t.join();
     }
 
+    private void updateCustomerAmount(int customerId) {
+        if(customerId == 0) {
+            balance1.setText("Balance: " + accounts[0].getBalance());
+        } else if(customerId == 1) {
+            balance2.setText("Balance: " + accounts[1].getBalance());
+        } else  {
+            balance3.setText("Balance: " + accounts[2].getBalance());
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        profileName1.setText("Kirollos Rafik");
@@ -120,16 +154,9 @@ public class DynamicController implements Initializable {
 
         monitor = new Monitor(numOfCustomers,accounts);
         customers = new Customer[numOfCustomers];
-
-//        for(int i = 0; i < numOfCustomers; i++)
-//            customers[i] = new Customer(i,accounts[i],accounts[(i+numOfCustomers-1)%numOfCustomers],monitor);
-//
-//        for(int i = 0; i < numOfCustomers; i++)
-//            try {
-//                customers[i].t.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        for (int i = 0; i < numOfCustomers; i++) {
+            customers[i] = new Customer(i);
+        }
 
         System.out.println("");
         System.out.println("Dinner is over!");
@@ -149,5 +176,4 @@ public class DynamicController implements Initializable {
         comboBoxAccounts2.getItems().addAll(customers[0].getName(),customers[2].getName());
         comboBoxAccounts3.getItems().addAll(customers[0].getName(),customers[1].getName());
     }
-
 }

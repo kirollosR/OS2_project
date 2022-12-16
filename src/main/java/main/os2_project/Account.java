@@ -5,6 +5,8 @@ public class Account {
     private String name;
     private int id;
     private float balance;
+    private int SleepTime = 1000;
+
 
     public Account(int id, float balance){
         this.id = id;
@@ -12,7 +14,7 @@ public class Account {
         this.name = "Account #"+id;
     }
 
-    public float getBalance(){
+    public synchronized float getBalance(){
         return balance;
     }
 
@@ -34,19 +36,27 @@ public class Account {
         return name;
     }
 
-    public boolean checkBalance(float amount){
-        if(balance >= amount){
-            return true;
+    public synchronized void minusBalance(float amount){
+        if(balance < amount) {
+            System.out.println("Insufficient funds!");
+            return;
         }
-        return false;
-    }
-
-    public void minusBalance(float amount){
         balance -= amount;
-
+        try {
+            Thread.sleep(SleepTime);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("after withdrawl balance = $" + balance);
     }
 
-    public void addBalance(float amount){
+    public synchronized void addBalance(float amount){
         balance += amount;
+        try {
+            Thread.sleep(SleepTime);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("after deposit balance = $" + balance);
     }
 }

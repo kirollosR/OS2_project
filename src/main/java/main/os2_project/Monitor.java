@@ -1,5 +1,8 @@
 package main.os2_project;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -12,6 +15,8 @@ public class Monitor {
     private States[] state;
     final Condition[] cond;
     private Account[] accounts;
+    private final List<Condition> syncQueue = new ArrayList<Condition>(); // threads waiting to be the holder
+
 
     public Monitor(int numberOfCustomers, Account[] c){
         this.numberOfCustomers = numberOfCustomers;
@@ -47,7 +52,11 @@ public class Monitor {
             state[id] = States.WANT_TO_TRANSFER;
             test(id, transferToId);
             if(state[id] != States.TRANSFERING){
+                syncQueue.add(cond[id]);
                 cond[id].await();
+            } else if (state[transferToId] != States.TRANSFERING) {
+                syncQueue.add(cond[transferToId]);
+                cond[transferToId].await();
             }
             transfer(id, transferToId, transferAmount);
         } catch (InterruptedException e) {
@@ -56,7 +65,7 @@ public class Monitor {
             lock.unlock();
         }
     }
-    public void transfer(int id, int transferToId, float transferAmount){
+    private synchronized void transfer(int id, int transferToId, float transferAmount){
 //        state[i] = States.EATING;
         accounts[id].take();
         accounts[transferToId].take();
@@ -64,9 +73,12 @@ public class Monitor {
         accounts[transferToId].addBalance(transferAmount);
     }
     public void putDown(int id, int transferToId){
+        System.out.println(id + " PutDown");
         lock.lock();
         try {
             sleep(id, transferToId);
+            syncQueue.forEach(Object::notify);
+//            notifyAll();
             // Tell the right neighbor about the possibility to eat.
 //            int account1 = (id + numberOfCustomers - 1)%numberOfCustomers;
 //            int account2 = (id + numberOfCustomers - 2)%numberOfCustomers;
