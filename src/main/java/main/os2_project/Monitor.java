@@ -15,12 +15,14 @@ public class Monitor {
     private States[] state;
     final Condition cond;
     private Account[] accounts;
+    private DynamicController controller;
 
 
-    public Monitor(int numberOfCustomers, Account[] c){
+    public Monitor(int numberOfCustomers, Account[] c, DynamicController controller){
         this.numberOfCustomers = numberOfCustomers;
         lock = new ReentrantLock(true); // can send boolean with true for the fair to make a queue 3ashan law kaza 7ad 3ayz yem3l lock yestano fe queue
         state = new States[numberOfCustomers];
+        this.controller = controller;
 //        cond = new Condition();
         cond = lock.newCondition();
         accounts = new Account[numberOfCustomers];
@@ -69,8 +71,11 @@ public class Monitor {
 //        state[i] = States.EATING;
         accounts[id].take();
         accounts[transferToId].take();
-        accounts[id].minusBalance(transferAmount);
-        accounts[transferToId].addBalance(transferAmount);
+        boolean result = accounts[id].minusBalance(transferAmount);
+        if(result)
+            accounts[transferToId].addBalance(transferAmount);
+//        controller.updateCustomerMessage(id, "Transfering Amount = $" + transferAmount + "To Customer #"+transferToId);
+//        System.out.println("after withdrawl balance = $" + balance);
     }
     public void putDown(int id, int transferToId){
         System.out.println(id + " PutDown");

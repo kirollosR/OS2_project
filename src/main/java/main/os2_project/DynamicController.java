@@ -139,6 +139,16 @@ public class DynamicController implements Initializable {
             balance3.setText("Balance: " + accounts[2].getBalance());
         }
     }
+
+    public void updateCustomerMessage(int customerId, String message) {
+        if(customerId == 0) {
+            labelTransferStatus1.setText(message);
+        } else if(customerId == 1) {
+            labelTransferStatus2.setText(message);
+        } else  {
+            labelTransferStatus3.setText(message);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        profileName1.setText("Kirollos Rafik");
@@ -152,7 +162,7 @@ public class DynamicController implements Initializable {
             accounts[i] = new Account(i, (int)(Math.random() * (max - min + 1) + min));
         }
 
-        monitor = new Monitor(numOfCustomers,accounts);
+        monitor = new Monitor(numOfCustomers,accounts, this);
         customers = new Customer[numOfCustomers];
         for (int i = 0; i < numOfCustomers; i++) {
             customers[i] = new Customer(i);

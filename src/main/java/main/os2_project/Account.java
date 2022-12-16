@@ -36,10 +36,10 @@ public class Account {
         return name;
     }
 
-    public synchronized void minusBalance(float amount){
+    public synchronized boolean minusBalance(float amount){
         if(balance < amount) {
             System.out.println("Insufficient funds!");
-            return;
+            return false;
         }
         balance -= amount;
         try {
@@ -48,6 +48,7 @@ public class Account {
             System.out.println(e.getMessage());
         }
         System.out.println("after withdrawl balance = $" + balance);
+        return true;
     }
 
     public synchronized void addBalance(float amount){
