@@ -74,7 +74,7 @@ public class Monitor {
         boolean result = accounts[id].minusBalance(transferAmount);
         if(result)
             accounts[transferToId].addBalance(transferAmount);
-//        controller.updateCustomerMessage(id, "Transfering Amount = $" + transferAmount + "To Customer #"+transferToId);
+        controller.updateCustomerMessage(id, "Transfering Amount = $" + transferAmount + "To Customer #"+transferToId);
 //        System.out.println("after withdrawl balance = $" + balance);
     }
     public void putDown(int id, int transferToId){
