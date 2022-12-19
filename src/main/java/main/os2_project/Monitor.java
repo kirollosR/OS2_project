@@ -54,17 +54,16 @@ public class Monitor {
             state[id] = States.WANT_TO_TRANSFER;
             test(id, transferToId);
             if(state[id] != States.TRANSFERING){
-//                syncQueue.add(cond[id]);
                 cond.await();
             } else if (state[transferToId] != States.TRANSFERING) {
-//                syncQueue.add(cond[transferToId]);
                 cond.await();
             }
+            System.out.println("Transferring " + id);
             transfer(id, transferToId, transferAmount);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            lock.unlock();
+//            lock.unlock();
         }
     }
     private synchronized void transfer(int id, int transferToId, float transferAmount){
@@ -74,23 +73,18 @@ public class Monitor {
         boolean result = accounts[id].minusBalance(transferAmount);
         if(result)
             accounts[transferToId].addBalance(transferAmount);
-        controller.updateCustomerMessage(id, "Transfering Amount = $" + transferAmount + "To Customer #"+transferToId);
+//        controller.updateCustomerMessage(id, "Transfering Amount = $" + transferAmount + "To Customer #"+transferToId);
 //        System.out.println("after withdrawl balance = $" + balance);
     }
     public void putDown(int id, int transferToId){
         System.out.println(id + " PutDown");
-        lock.lock();
+//        lock.lock();
         try {
             sleep(id, transferToId);
-//            syncQueue.forEach(Condition::signal);
             cond.signalAll();
-            // Tell the right neighbor about the possibility to eat.
-//            int account1 = (id + numberOfCustomers - 1)%numberOfCustomers;
-//            int account2 = (id + numberOfCustomers - 2)%numberOfCustomers;
-//            test(account1);
-//            test(account2);
         }
         finally {
+            System.out.println("Transferred Successfully " + id);
             lock.unlock();
         }
     }

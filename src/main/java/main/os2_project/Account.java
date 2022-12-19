@@ -47,7 +47,7 @@ public class Account {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("after withdrawl balance = $" + balance);
+        System.out.println("after withdrawal balance = $" + balance);
         return true;
     }
 

@@ -1,5 +1,6 @@
 package main.os2_project;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,11 +83,7 @@ public class DynamicController implements Initializable {
         String selected = comboBoxAccounts1.getSelectionModel().getSelectedItem();
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
         String amount = textFieldAmount1.getText();
-        System.out.println("transferToId " + transferToId);
         setBtnTransfer(0, transferToId, amount);
-//        setBtnTransfer(transferToId, 2, amount);
-        updateCustomerAmount(0);
-        updateCustomerAmount(transferToId);
     }
 
     @FXML
@@ -95,8 +92,6 @@ public class DynamicController implements Initializable {
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
         String amount = textFieldAmount2.getText();
         setBtnTransfer(1, transferToId, amount);
-        updateCustomerAmount(1);
-        updateCustomerAmount(transferToId);
     }
     @FXML
     void btn3TransferOnClick(ActionEvent event) throws InterruptedException {
@@ -104,8 +99,6 @@ public class DynamicController implements Initializable {
         int transferToId = parseInt(String.valueOf(selected.charAt(selected.length() - 1)));
         String amount = textFieldAmount3.getText();
         setBtnTransfer(2, transferToId, amount);
-        updateCustomerAmount(2);
-        updateCustomerAmount(transferToId);
     }
     @FXML
     public void startTransferOnClick(ActionEvent actionEvent) {
@@ -124,10 +117,12 @@ public class DynamicController implements Initializable {
     }
     private void setBtnTransfer(int customerId, int transferToId, String amount) throws InterruptedException {
         float amountFloat = parseFloat(amount);
+        if(amountFloat < 0) {
+            updateCustomerMessage(customerId, "Please enter amount more than 0");
+            return;
+        }
         Transfer transfer = new Transfer(customers[customerId].getId(), transferToId, amountFloat, monitor);
         transfers.add(transfer);
-//        customers[customerId].setTransfer(transfer);
-//        customers[customerId].getTransfer().t.join();
     }
 
     private void updateCustomerAmount(int customerId) {
@@ -151,7 +146,6 @@ public class DynamicController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        profileName1.setText("Kirollos Rafik");
         int min = 1000;
         int max = 10000;
 
@@ -162,14 +156,11 @@ public class DynamicController implements Initializable {
             accounts[i] = new Account(i, (int)(Math.random() * (max - min + 1) + min));
         }
 
-        monitor = new Monitor(numOfCustomers,accounts, this);
+        monitor = new Monitor(numOfCustomers,accounts,this);
         customers = new Customer[numOfCustomers];
         for (int i = 0; i < numOfCustomers; i++) {
             customers[i] = new Customer(i);
         }
-
-        System.out.println("");
-        System.out.println("Dinner is over!");
 
         //set profile name labels
         profileName1.setText("Customer #" + customers[0].getId());
