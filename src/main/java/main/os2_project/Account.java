@@ -5,7 +5,7 @@ public class Account {
     private String name;
     private int id;
     private float balance;
-    private int SleepTime = 1000;
+    private int SleepTime = 500;
 
 
     public Account(int id, float balance){

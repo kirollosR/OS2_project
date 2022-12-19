@@ -15,14 +15,11 @@ public class Monitor {
     private States[] state;
     final Condition cond;
     private Account[] accounts;
-    private DynamicController controller;
 
-
-    public Monitor(int numberOfCustomers, Account[] c, DynamicController controller){
+    public Monitor(int numberOfCustomers, Account[] c){
         this.numberOfCustomers = numberOfCustomers;
         lock = new ReentrantLock(true); // can send boolean with true for the fair to make a queue 3ashan law kaza 7ad 3ayz yem3l lock yestano fe queue
         state = new States[numberOfCustomers];
-        this.controller = controller;
 //        cond = new Condition();
         cond = lock.newCondition();
         accounts = new Account[numberOfCustomers];

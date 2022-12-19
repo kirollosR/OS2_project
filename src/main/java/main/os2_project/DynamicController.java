@@ -156,7 +156,7 @@ public class DynamicController implements Initializable {
             accounts[i] = new Account(i, (int)(Math.random() * (max - min + 1) + min));
         }
 
-        monitor = new Monitor(numOfCustomers,accounts,this);
+        monitor = new Monitor(numOfCustomers,accounts);
         customers = new Customer[numOfCustomers];
         for (int i = 0; i < numOfCustomers; i++) {
             customers[i] = new Customer(i);
